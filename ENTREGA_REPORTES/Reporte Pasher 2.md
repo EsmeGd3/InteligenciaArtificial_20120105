@@ -175,7 +175,7 @@ function render() {
 
 ## EJEMPLO DE COMO FUNCIONA EL JUEGO 
 Tarda un poco en cargar ya que es un gif :3
-![Funcionamiento del Juego](/Imagenes/pashedos.webm)
+![Funcionamiento del Juego](/Imagenes/pasherdos.gif)
 
 *Dalia Esmeralda Garcia Diaz*
 
