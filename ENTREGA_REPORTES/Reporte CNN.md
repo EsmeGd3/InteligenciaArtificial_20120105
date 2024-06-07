@@ -5,7 +5,7 @@ El proceso de implementación de una red neuronal convolucional (CNN) para la de
 ## Preparación de Datos
 El primer paso en el proceso es la preparación de los datos. Las imágenes se leen desde un directorio específico y se almacenan en una lista para su posterior procesamiento.
 
-
+```python
 import numpy as np
 import os
 import re
@@ -18,7 +18,7 @@ from keras.utils import to_categorical
 from keras.models import Sequential, Model
 from keras.layers import Input, Dense, Dropout, Flatten, BatchNormalization, SeparableConv2D, MaxPooling2D, Activation, LeakyReLU, Conv2D
 
-dirname = os.path.join(os.getcwd(), 'C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\ProyectoCNN\\categorias')
+dirname = os.path.join(os.getcwd(), 'C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\DATASET_CNN\\categorias')
 imgpath = dirname + os.sep 
 
 images = []
@@ -50,11 +50,12 @@ dircount[0] = dircount[0] + 1
 print('Directorios leídos:', len(directories))
 print("Imágenes en cada directorio", dircount)
 print('Suma total de imágenes en subdirs:', sum(dircount))
+```
 
 ## Creación de Etiquetas
 
 ### Se crean etiquetas para las imágenes en función de sus directorios y se almacenan en una lista.
-
+```PYTHON
 labels = []
 indice = 0
 for cantidad in dircount:
@@ -70,10 +71,10 @@ for directorio in directories:
     print(indice, name[len(name) - 1])
     Incidentes.append(name[len(name) - 1])
     indice = indice + 1
-
+```
 ## Preparación de Conjuntos de Datos
 ### Las imágenes y las etiquetas se dividen en conjuntos de entrenamiento y prueba.
-
+```PYTHON
 y = np.array(labels)
 X = np.array(images, dtype=np.uint8)
 
@@ -85,10 +86,11 @@ train_X = train_X.astype('float32')
 test_X = test_X.astype('float32')
 train_X = train_X / 255.
 test_X = test_X / 255.
+```
 
 ## Construcción del Modelo
 ### Se construye un modelo CNN con Keras.
-
+```PYTHON
 train_Y_one_hot = to_categorical(train_Y)
 test_Y_one_hot = to_categorical(test_Y)
 
@@ -109,17 +111,17 @@ sport_model.add(Dense(len(Incidentes), activation='softmax'))
 
 sport_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=tf.keras.optimizers.SGD(learning_rate=INIT_LR, decay=INIT_LR / 100), metrics=['accuracy'])
 sport_model.summary()
-
+```
 # Entrenamiento del Modelo
 ## El modelo se entrena con los datos de entrenamiento.
-
+```PYTHON
 sport_train = sport_model.fit(train_X, train_Y_one_hot, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(valid_X, valid_label))
 
 sport_model.save("C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\red.h5")
-
+```
 ## Evaluación del Modelo
 ### Se evalúa el rendimiento del modelo con los datos de prueba.
-
+```PYTHON
 test_eval = sport_model.evaluate(test_X, test_Y_one_hot, verbose=1)
 print('Test loss:', test_eval[0])
 print('Test accuracy:', test_eval[1])
@@ -140,10 +142,10 @@ plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
 plt.show()
-
+```
 ## Predicciones
 ### Se realizan predicciones con el modelo entrenado en nuevas imágenes.
-
+```PYTHON
 predicted_classes2 = sport_model.predict(test_X)
 predicted_classes = [predicted_sport.tolist().index(max(predicted_sport)) for predicted_sport in predicted_classes2]
 predicted_classes = np.array(predicted_classes)
@@ -168,10 +170,10 @@ for i, incorrect in enumerate(incorrect[0:9]):
 
 target_names = ["Class {}".format(i) for i in range(len(Incidentes))]
 print(classification_report(test_Y, predicted_classes, target_names=target_names))
-
+```
 ## Predicción en Nuevas Imágenes
 ### Se carga el modelo guardado y se hacen predicciones en nuevas imágenes.
-
+```PYTHON
 import cv2 as cv
 from skimage.transform import resize
 from keras.models import load_model
@@ -212,7 +214,7 @@ for i, img_tagged in enumerate(predicted_classes):
         break
 
 cv.destroyAllWindows()
-
+```
 ##  Imagenes de el funcionamiento de este proyecto 
 
 ![Deteccion Inundacion](/Imagenes/inunda.png)
