@@ -43,4 +43,80 @@ function create() {
     jump = game.input.keyboard.addKey(Phaser.Keyboard.W);
     left = game.input.keyboard.addKey(Phaser.Keyboard.A);
     right = game.input.keyboard.addKey(Phaser.Keyboard.D);
+} javascript```
+
+### Funciones de Actualización
+
+### En esta sección se gestiona la lógica del juego y se actualizan las posiciones y estados de los elementos del juego en cada fotograma.
+
+
+```javascript
+function update() {
+    if (newGame) {
+        newGame = false;
+        // Reinicia las posiciones de los elementos del juego al iniciar una nueva partida
+    }
+
+    background.tilePosition.x -= 1;
+
+    // Detecta colisiones entre el jugador y las balas enemigas
+    game.physics.arcade.collide(bullet, player, collisionHandler, null, this);
+    game.physics.arcade.collide(bullet2, player, collisionHandler, null, this);
+    game.physics.arcade.collide(bullet3, player, collisionHandler, null, this);
+
+    // Actualiza el estado del jugador (en el suelo o en el aire)
+    groundStatus = 1;
+    airStatus = 0;
+    if (!player.body.onFloor()) {
+        groundStatus = 0;
+        airStatus = 1;
+    }
+
+    // Actualiza la posición de las balas en relación con el jugador
+    bulletDistance = Math.floor(player.position.x - bullet.position.x);
+    bulletDistance2 = Math.floor(player.position.y - bullet2.position.y);
+    bulletDistance2x = Math.floor(player.position.x - bullet2.position.x);
+    bulletDistance3 = Math.floor(player.position.y - bullet3.position.y);
+    bulletDistance3x = Math.floor(player.position.x - bullet3.position.x);
+
+    // Control del jugador por el usuario o la red neuronal en modo automático
+    if (autoMode == false && right.isDown && player.body.onFloor()) {
+        moveRight();
+    }
+
+    if (autoMode == false && jump.isDown && player.body.onFloor()) {
+        jumpAction();
+    }
+
+    if (autoMode == true && bullet.position.x > 0 && player.body.onFloor()) {
+        // Control del jugador por la red neuronal en modo automático
+    }
+
+    // Control del disparo de las balas enemigas
+    if (bulletD == false) {
+        fire();
+    }
+
+    if (bullet.position.x <= 0) {
+        resetVariables();
+    }
+
+    if (bulletD2 == false) {
+        fire2();
+    }
+
+    if (bullet3.position.y >= canvasHeight) {
+        fire3();
+    }
+
+    // Recopilación de datos para entrenamiento de la red neuronal en modo manual
+    if (autoMode == false && bullet.position.x > 0) {
+        trainingData.push({
+            'input': [bulletDistance, bulletSpeed],
+            'output': [airStatus, groundStatus]
+        });
+    }
 }
+javascript```
+
+
