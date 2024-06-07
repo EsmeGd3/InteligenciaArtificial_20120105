@@ -205,7 +205,7 @@ function pauseClick(event) {
 
 ## EJEMPLO DE COMO FUNCIONA EL JUEGO 
 
-![Funcionamiento del Juego](/Imagenes/pasheuno.gif)
+![Funcionamiento del Juego](https://drive.google.com/file/d/1obdcD3JjneJPiYt-SqVx17fvDxRnPxmh/view?usp=sharing)
 
 *Dalia Esmeralda Garcia Diaz*
 
