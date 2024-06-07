@@ -186,7 +186,7 @@ else:
 
 ## Imagenes de ejemplo donde se detecta a wally
 
-[Deteccion de wally imagen uno](./Imagenes/wallyuno.png)
-[Deteccion de wally imagen dos](./Imagenes/wallydos.png)
+[Deteccion de wally imagen uno](/Imagenes/wallyuno.png)
+[Deteccion de wally imagen dos](/Imagenes/wallydos.png)
 
 *Dalia Esmeralda Garcia Diaz*
