@@ -108,7 +108,7 @@ else:
 ### La parte de prediccion, el sub-bloque de la imagen (rostro detectado) se redimensiona y se utiliza para predecir la emoción utilizando el modelo LBPH. Si la confianza de la predicción es alta (valor menor a 100), se muestra el nombre correspondiente a la emoción detectada, en dado caso si la confianza es baja, se etiqueta como "Desconocido".
 ### Despues se dibujan rectángulos y etiquetas sobre los rostros detectados en el fotograma.
 
-# 5. Visualización en Tiempo Real y Terminación
+### 5. Visualización en Tiempo Real y Terminación
 
 cv.imshow('frame', frame)
 k = cv.waitKey(1)
