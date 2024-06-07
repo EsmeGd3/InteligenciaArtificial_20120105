@@ -10,7 +10,7 @@ import numpy as np
 import cv2 as cv
 import math
 
-rostro = cv.CascadeClassifier('C:\\Users\\Mermelada\\IA_20120105\\IA_ESMERALDA-GARCIA-DIAZ-\\XML\\haarcascade_frontalface_alt.xml')
+rostro = cv.CascadeClassifier('C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\XML\\haarcascade_frontalface_alt.xml')
 
 ### Se importan numpy para operaciones numéricas, cv2 para operaciones de visión por computadora y math para operaciones matemáticas. Despues se carga un clasificador en cascada para la detección de rostros, utilizando el archivo XML haarcascade_frontalface_alt.xml.
 
@@ -31,7 +31,7 @@ while True:
         frame2 = frame[y:y+h, x:x+w]
         frame2 = cv.resize(frame2, (100, 100), interpolation = cv.INTER_AREA)
         cv.imshow('rostros encontrados', frame2)
-        cv.imwrite('C:\\Users\\Mermelada\\IA_20120105\\IA_ESMERALDA-GARCIA-DIAZ-\\ProyectoEmociones\\neutral\\neutral'+str(i)+'neutral.png', frame2)
+        cv.imwrite('C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\ProyectoEmociones\\neutral\\neutral'+str(i)+'neutral.png', frame2)
 
 ### En cada iteración del bucle, se captura un fotograma de la cámara. El fotograma se convierte a escala de grises para facilitar la detección de rostros y en seguida se detectan rostros en la imagen usando el clasificador en cascada, con parámetros de escala y vecinos.
 
@@ -62,22 +62,22 @@ import cv2 as cv
 import os
 
 faceRecognizer = cv.face.LBPHFaceRecognizer_create()
-faceRecognizer.read('C:\\Users\\Mermelada\\IA_20120105\\IA_ESMERALDA-GARCIA-DIAZ-\\XML\\esmemociones.xml')
+faceRecognizer.read('C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\XML\\esmemociones.xml')
 
 ### En esta parte se importan las librerías como el cv2 para operaciones de visión por computadora y os para interactuar con el sistema de archivos.
 ### Despues se crea un objeto faceRecognizer usando el algoritmo LBPH (Local Binary Patterns Histograms) y se carga un modelo previamente entrenado desde un archivo XML.
 
 ### 2. Preparación del Dataset y Captura de Video
 
-dataSet = 'C:\\Users\\Mermelada\\IA_20120105\\IA_ESMERALDA-GARCIA-DIAZ-\\ProyectoEmociones'
+dataSet = 'C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\ProyectoEmociones'
 faces  = os.listdir(dataSet)
 cap = cv.VideoCapture(0)
-rostro = cv.CascadeClassifier('C:\\Users\\Mermelada\\IA_20120105\\IA_ESMERALDA-GARCIA-DIAZ-\\XML\\haarcascade_frontalface_alt.xml')
+rostro = cv.CascadeClassifier('C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArtificial_20120105\\XML\\haarcascade_frontalface_alt.xml')
 
 ### Se define la ruta al dataset que contiene las imágenes de las caras y se listan los archivos dentro de este directorio. Despues se inicializa la captura de video desde la cámara (índice 0).
 ### Se carga un clasificador en cascada para la detección de rostros, utilizando el archivo XML haarcascade_frontalface_alt.xml.
 
-[MI DATASET DE EMOCIONES](/Imagenes/dataemo.png)
+[MI DATASET DE EMOCIONES](./Imagenes/dataemo.png)
 
 ### 3. Procesamiento de Video y Detección de Rostros
 
@@ -122,8 +122,8 @@ cv.destroyAllWindows()
 
 ## Imagenes de algunos ejemplos del dataset de como se muestra funcionando este proyecto 
 
-[Emocion Felicidad](/Imagenes/felix.png)
+[Emocion Felicidad](./Imagenes/felix.png)
 
-[Emocion Neutral](/Imagenes/neutral.png)
+[Emocion Neutral](./Imagenes/neutral.png)
 
-[Emocion Enojo](/Imagenes/enojo.png)
+[Emocion Enojo](./Imagenes/enojo.png)
