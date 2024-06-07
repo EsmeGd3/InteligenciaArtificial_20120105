@@ -124,6 +124,6 @@ cv.destroyAllWindows()
 
 [Emocion Felicidad](/Imagenes/felix.png)
 
-[Emocion Neutral](./Imagenes/neutral.png)
+[Emocion Neutral](/Imagenes/neutral.png)
 
 [Emocion Enojo](/Imagenes/enojo.png)
