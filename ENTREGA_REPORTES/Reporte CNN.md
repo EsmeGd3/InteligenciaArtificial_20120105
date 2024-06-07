@@ -221,8 +221,6 @@ cv.destroyAllWindows()
 
 ![Deteccion Incendio](/Imagenes/incendio.png)
 
-![Deteccion Tornado](/Imagenes/enojo.png)
-
 ![Deteccion Tornado](/Imagenes/torna.png)
 
 
