@@ -122,8 +122,8 @@ cv.destroyAllWindows()
 
 ## Imagenes de algunos ejemplos del dataset de como se muestra funcionando este proyecto 
 
-[Emocion Felicidad](/Imagenes/felix.png)
+![Emocion Felicidad](/Imagenes/felix.png)
 
-[Emocion Neutral](/Imagenes/neutral.png)
+![Emocion Neutral](/Imagenes/neutral.png)
 
-[Emocion Enojo](/Imagenes/enojo.png)
+![Emocion Enojo](/Imagenes/enojo.png)
