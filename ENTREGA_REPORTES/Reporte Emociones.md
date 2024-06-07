@@ -94,7 +94,7 @@ while True:
 ### En esta parte se hace la captura de Fotogramas, en cada iteración del bucle, se captura un fotograma de la cámara. Se hace la conversión a escala de Grises: El fotograma se convierte a escala de grises para facilitar el procesamiento.
 ### En la detección de Rostros se detectan rostros en la imagen usando el clasificador en cascada, con parámetros de escala y vecinos.
 
-# 4. Reconocimiento de Emociones
+### 4. Reconocimiento de Emociones
 
 result = faceRecognizer.predict(frame2)
 cv.putText(frame, '{}'.format(result), (x, y-20), 1, 3.3, (255, 255, 0), 1, cv.LINE_AA)
