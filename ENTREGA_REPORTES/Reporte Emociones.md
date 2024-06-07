@@ -77,7 +77,7 @@ rostro = cv.CascadeClassifier('C:\\Users\\FAS\\Desktop\\alcaraz\\InteligenciaArt
 ### Se define la ruta al dataset que contiene las imágenes de las caras y se listan los archivos dentro de este directorio. Despues se inicializa la captura de video desde la cámara (índice 0).
 ### Se carga un clasificador en cascada para la detección de rostros, utilizando el archivo XML haarcascade_frontalface_alt.xml.
 
-[MI DATASET DE EMOCIONES](/Imagenes/dataemo.png)
+![MI DATASET DE EMOCIONES](/Imagenes/dataemo.png)
 
 ### 3. Procesamiento de Video y Detección de Rostros
 
@@ -127,3 +127,7 @@ cv.destroyAllWindows()
 ![Emocion Neutral](/Imagenes/neutral.png)
 
 ![Emocion Enojo](/Imagenes/enojo.png)
+
+
+
+*Dalia Esmeralda Garcia Diaz*
