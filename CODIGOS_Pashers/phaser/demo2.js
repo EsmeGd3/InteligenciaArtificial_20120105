@@ -7,18 +7,18 @@ const PAUSE_TEXT = 'Pausa';
 const PAUSE_STYLE = { font: '20px Arial', fill: '#fff' };
 
 // Variables globales
-var player, background, ball, pauseLabel, menu,backgroundMusic;
-var cursors, trainingData = [];
-var isAutoMode = false, isTrainingComplete = false;
-var JX = 250, JY = 250;
-var stepIndex = 0; 
+let player, background, ball, pauseLabel, menu, backgroundMusic;
+let cursors, trainingData = [];
+let isAutoMode = false, isTrainingComplete = false;
+let JX = 250, JY = 250;
+let stepIndex = 0;
 
 // Inicialización del juego Phaser
-var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, '', {
-    preload: preload,
-    create: create,
-    update: update,
-    render: render
+const game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, '', {
+    preload,
+    create,
+    update,
+    render
 });
 
 // Precarga de assets del juego
@@ -27,48 +27,73 @@ function preload() {
     game.load.spritesheet('player', 'assets/sprites/altair.png', 32, 48);
     game.load.image('menu', 'assets/game/menu.png');
     game.load.image('ball', 'assets/sprites/purple_ball.png');
-   game.load.audio('backgroundMusic', 'assets/sprites/jump.mp3');
+    game.load.audio('backgroundMusic', 'assets/sprites/jump.mp3');
 }
+
 // Inicialización de elementos del juego
 function create() {
-    // Inicialización de sistema de física
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = 0; // No hay gravedad para el movimiento libre
-    game.time.desiredFps = FPS;
+    setupPhysics();
+    setupBackground();
+    setupPlayer();
+    setupBall();
+    setupPauseLabel();
+    setupInput();
+    setupMusic();
+}
 
-    // Creación del fondo y jugador
+// Configuración del sistema de física
+function setupPhysics() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.arcade.gravity.y = 0;
+    game.time.desiredFps = FPS;
+}
+
+// Configuración del fondo
+function setupBackground() {
     background = game.add.tileSprite(0, 0, WIDTH, HEIGHT, 'background');
+}
+
+// Configuración del jugador
+function setupPlayer() {
     player = game.add.sprite(WIDTH / 2, HEIGHT / 2, 'player');
     game.physics.enable(player);
     player.body.collideWorldBounds = true;
-    var run = player.animations.add('run', [8, 9, 10, 11]);
+    const run = player.animations.add('run', [8, 9, 10, 11]);
     player.animations.play('run', 10, true);
+}
 
-    // Creación de la bola
+// Configuración de la bola
+function setupBall() {
     ball = game.add.sprite(0, 0, 'ball');
     game.physics.enable(ball);
     ball.body.collideWorldBounds = true;
     ball.body.bounce.set(1);
     setRandomBallVelocity();
+}
 
-    // Creación de etiqueta para pausa
+// Configuración de la etiqueta de pausa
+function setupPauseLabel() {
     pauseLabel = game.add.text(WIDTH - 100, 20, PAUSE_TEXT, PAUSE_STYLE);
     pauseLabel.inputEnabled = true;
-    pauseLabel.events.onInputUp.add(pauseGame, this);
-    game.input.onDown.add(handlePauseClick, this);
+    pauseLabel.events.onInputUp.add(pauseGame);
+    game.input.onDown.add(handlePauseClick);
+}
 
-    // Captura de teclas de flecha
+// Configuración de la música de fondo
+function setupMusic() {
+    backgroundMusic = game.add.audio('backgroundMusic');
+    backgroundMusic.loop = true;
+    backgroundMusic.play();
+}
+
+// Captura de teclas de flecha
+function setupInput() {
     cursors = game.input.keyboard.createCursorKeys();
-
-     // Crear y reproducir música de fondo
-     music = game.add.audio('backgroundMusic');
-     music.loop = true; // Hacer que la música se repita
-     music.play(); // Reproducir la música
 }
 
 // Establece una velocidad aleatoria para la bola
 function setRandomBallVelocity() {
-    var angle = game.rnd.angle();
+    const angle = game.rnd.angle();
     ball.body.velocity.set(Math.cos(angle) * BALL_SPEED, Math.sin(angle) * BALL_SPEED);
 }
 
@@ -81,25 +106,23 @@ function pauseGame() {
 
 // Maneja los clics en el menú de pausa
 function handlePauseClick(event) {
-    // Cálculo de límites del menú de pausa
     if (game.paused) {
-        var menuBounds = {
-            x1: WIDTH / 2 - 270 / 2,
-            x2: WIDTH / 2 + 270 / 2,
-            y1: HEIGHT / 2 - 180 / 2,
-            y2: HEIGHT / 2 + 180 / 2
+        const menuBounds = {
+            x1: WIDTH / 2 - 135,
+            x2: WIDTH / 2 + 135,
+            y1: HEIGHT / 2 - 90,
+            y2: HEIGHT / 2 + 90
         };
 
-        // Acciones basadas en la posición del clic
         if (event.x > menuBounds.x1 && event.x < menuBounds.x2 && event.y > menuBounds.y1 && event.y < menuBounds.y2) {
-            if (event.y <= menuBounds.y1 + 90) {
+            if (event.y <= menuBounds.y1 + 45) {
                 resetTraining();
-            } else if (event.y > menuBounds.y1 + 90) {
+            } else {
                 if (trainingData.length > 0) {
                     isTrainingComplete = true;
                 }
                 isAutoMode = true;
-                stepIndex = 0; // Reiniciar el índice de reproducción
+                stepIndex = 0;
             }
             menu.destroy();
             resetGame();
@@ -121,7 +144,6 @@ function resetGame() {
     player.y = HEIGHT / 2;
     player.body.velocity.x = 0;
     player.body.velocity.y = 0;
-
     ball.x = 0;
     ball.y = 0;
     setRandomBallVelocity();
@@ -129,19 +151,19 @@ function resetGame() {
 
 // Actualiza la lógica del juego en cada cuadro
 function update() {
-    background.tilePosition.x -= 1; // Mueve el fondo para crear efecto de desplazamiento
+    background.tilePosition.x -= 1;
 
     if (!isAutoMode) {
         handlePlayerInput();
-    } else if (isAutoMode) {
+    } else {
         replayPlayerInput();
     }
 
-    game.physics.arcade.collide(ball, player, handleCollision, null, this);
+    game.physics.arcade.collide(ball, player, handleCollision);
 
-    var dx = ball.x - player.x;
-    var dy = ball.y - player.y;
-    var distance = Math.sqrt(dx * dx + dy * dy); // Distancia euclidiana entre la bola y el jugador
+    const dx = ball.x - player.x;
+    const dy = ball.y - player.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
     if (!isAutoMode) {
         storeTrainingData(dx, dy, distance);
@@ -168,39 +190,28 @@ function handlePlayerInput() {
 
 // Almacena los datos de entrenamiento para la red neuronal
 function storeTrainingData(dx, dy, distance) {
-    var left = cursors.left.isDown ? 1 : 0;
-    var right = cursors.right.isDown ? 1 : 0;
-    var up = cursors.up.isDown ? 1 : 0;
-    var down = cursors.down.isDown ? 1 : 0;
+    const left = cursors.left.isDown ? 1 : 0;
+    const right = cursors.right.isDown ? 1 : 0;
+    const up = cursors.up.isDown ? 1 : 0;
+    const down = cursors.down.isDown ? 1 : 0;
 
     JX = player.x;
     JY = player.y;
 
     trainingData.push({
-        'input': [dx, dy, distance, JX, JY],
-        'output': [left, right, up, down, player.x, player.y]
+        input: [dx, dy, distance, JX, JY],
+        output: [left, right, up, down, player.x, player.y]
     });
 
-    console.log(
-        "Diferencia de la posicion de la bola contra la del jugador en X: ", dx + "\n" +
-        "Diferencia de la posicion de la bola contra la del jugador en Y: ", dy + "\n" +
-        "Distancia euclidiana entre la bola y el jugador: ", distance + "\n" +
-        "Posicion del jugador en X: ", JX + "\n" +
-        "Posicion del jugador en Y: ", JY + "\n"
-    );
-    console.log(
-        "Izquierda: ", left + "\n" +
-        "Derecha: ", right + "\n" +
-        "Arriba: ", up + "\n" +
-        "Abajo: ", down + "\n"
-    );
+    console.log(`Diferencia de la posicion de la bola contra la del jugador en X: ${dx}\nDiferencia de la posicion de la bola contra la del jugador en Y: ${dy}\nDistancia euclidiana entre la bola y el jugador: ${distance}\nPosicion del jugador en X: ${JX}\nPosicion del jugador en Y: ${JY}`);
+    console.log(`Izquierda: ${left}\nDerecha: ${right}\nArriba: ${up}\nAbajo: ${down}`);
 }
 
 // Reproduce el movimiento del jugador en modo automático
 function replayPlayerInput() {
     if (stepIndex < trainingData.length) {
-        var currentStep = trainingData[stepIndex];
-        var output = currentStep.output;
+        const currentStep = trainingData[stepIndex];
+        const output = currentStep.output;
 
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
@@ -217,10 +228,9 @@ function replayPlayerInput() {
             player.body.velocity.y = PLAYER_SPEED;
         }
 
-        // Avanza al siguiente paso
         stepIndex++;
     } else {
-        isAutoMode = false; // Detener el modo automático al finalizar los movimientos grabados
+        isAutoMode = false;
     }
 }
 
