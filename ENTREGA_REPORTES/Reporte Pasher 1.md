@@ -204,8 +204,8 @@ function pauseClick(event) {
 ### Estas funciones controlan el comportamiento de pausa y menú en el juego. Al hacer clic en la opción del menú, se puede reiniciar el juego o reanudar la partida según la elección del jugador.
 
 ## EJEMPLO DE COMO FUNCIONA EL JUEGO 
-
-![Funcionamiento del Juego](https://drive.google.com/file/d/1obdcD3JjneJPiYt-SqVx17fvDxRnPxmh/view?usp=sharing)
+Tarda un poco en cargar ya que es un gif :3
+![Funcionamiento del Juego](/Imagenes/pasheuno.gif)
 
 *Dalia Esmeralda Garcia Diaz*
 

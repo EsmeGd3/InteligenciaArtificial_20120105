@@ -173,3 +173,9 @@ function render() {
 
 ### Esta función puede ser utilizada para renderizar información adicional en el juego, aunque actualmente está vacía.
 
+## EJEMPLO DE COMO FUNCIONA EL JUEGO 
+Tarda un poco en cargar ya que es un gif :3
+![Funcionamiento del Juego](/Imagenes/pashedos.webm)
+
+*Dalia Esmeralda Garcia Diaz*
+
